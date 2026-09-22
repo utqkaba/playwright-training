@@ -37,4 +37,11 @@ test.describe("Todo Management", () => {
       /completed/,
     );
   });
+  // Test case to verify that a user can delete a todo item
+  test("user can delete a todo item", async () => {
+    await todoPage.createTodo("delete test task 1");
+    await todoPage.deleteTodo("delete test task 1");
+
+    await expect(todoPage.getTodo("delete test task 1")).not.toBeVisible();
+  });
 });

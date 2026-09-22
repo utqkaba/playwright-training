@@ -36,4 +36,10 @@ export class TodoPage {
     const todoItem = this.getTodoItem(todo);
     await todoItem.getByRole("checkbox").check();
   }
+  // Method to delete a todo item by hovering over it and clicking the delete button
+  async deleteTodo(todo: string) {
+    const todoItem = this.getTodoItem(todo);
+    await todoItem.hover();
+    await todoItem.getByRole("button", { name: "Delete" }).click();
+  }
 }
