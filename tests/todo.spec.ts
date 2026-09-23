@@ -71,4 +71,17 @@ test.describe("Todo Management", () => {
     await expect(todoPage.getTodo("active test task 2")).toBeVisible();
     await expect(todoPage.getTodo("active test task 1")).not.toBeVisible();
   });
+
+  // Test case to verify that a user can clear completed todo items
+  test("user can clear completed todos", async () => {
+    await todoPage.createTodo("clear test task 1");
+    await todoPage.completeTodo("clear test task 1");
+
+    await todoPage.createTodo("clear test task 2");
+
+    await todoPage.deleteCompletedTodos();
+
+    await expect(todoPage.getTodo("clear test task 1")).not.toBeVisible();
+    await expect(todoPage.getTodo("clear test task 2")).toBeVisible();
+  });
 });

@@ -53,4 +53,9 @@ export class TodoPage {
   async filterCompletedTodos() {
     await this.page.getByRole("link", { name: "Completed" }).click();
   }
+
+  // Method to delete all completed todo items by clicking the "Clear completed" button
+  async deleteCompletedTodos() {
+    await this.page.getByRole("button", { name: "Clear completed" }).click();
+  }
 }
