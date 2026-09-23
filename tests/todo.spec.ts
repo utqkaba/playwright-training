@@ -37,11 +37,38 @@ test.describe("Todo Management", () => {
       /completed/,
     );
   });
+
   // Test case to verify that a user can delete a todo item
   test("user can delete a todo item", async () => {
     await todoPage.createTodo("delete test task 1");
     await todoPage.deleteTodo("delete test task 1");
 
     await expect(todoPage.getTodo("delete test task 1")).not.toBeVisible();
+  });
+
+  // Test case to verify that a user can filter active todo items
+  test("user can filter active todos", async () => {
+    await todoPage.createTodo("active test task 1");
+
+    await todoPage.createTodo("active test task 2");
+    await todoPage.completeTodo("active test task 2");
+
+    await todoPage.filterActiveTodos();
+
+    await expect(todoPage.getTodo("active test task 1")).toBeVisible();
+    await expect(todoPage.getTodo("active test task 2")).not.toBeVisible();
+  });
+
+  // Test case to verify that a user can filter completed todo items
+  test("user can filter completed todos", async () => {
+    await todoPage.createTodo("active test task 1");
+
+    await todoPage.createTodo("active test task 2");
+    await todoPage.completeTodo("active test task 2");
+
+    await todoPage.filterCompletedTodos();
+
+    await expect(todoPage.getTodo("active test task 2")).toBeVisible();
+    await expect(todoPage.getTodo("active test task 1")).not.toBeVisible();
   });
 });
